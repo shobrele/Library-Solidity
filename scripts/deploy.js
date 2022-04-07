@@ -1,30 +1,28 @@
-// We require the Hardhat Runtime Environment explicitly here. This is optional
-// but useful for running the script in a standalone fashion through `node <script>`.
-//
-// When running the script with `npx hardhat run <script>` you'll find the Hardhat
-// Runtime Environment's members available in the global scope.
 const hre = require("hardhat");
+const ethers = hre.ethers;
 
-async function main() {
-  // Hardhat always runs the compile task when running scripts with its command
-  // line interface.
-  //
-  // If this script is run directly using `node` you may want to call compile
-  // manually to make sure everything is compiled
-  // await hre.run('compile');
+async function deploy() {
+  await hre.run("compile"); // We are compiling the contracts using subtask
+  const [deployer] = await ethers.getSigners(); // We are getting the deployer
 
-  // We get the contract to deploy
-  const Library = await hre.ethers.getContractFactory("Library");
-  const library = await Library.deploy();
+  console.log("Deploying contracts with the account:", deployer.address); // We are printing the address of the deployer
+  console.log("Account balance:", (await deployer.getBalance()).toString()); // We are printing the account balance
 
-  await library.deployed();
+  const LibraryContractFactory = await ethers.getContractFactory("Library"); 
+  const libraryContract = await LibraryContractFactory.deploy();
+  console.log("Waiting for deployment...");
+  await libraryContract.deployed();
 
-  console.log("Library deployed to:", library.address);
+  console.log("Contract address: ", libraryContract.address);
+  console.log("Done!");
+
+  await hre.run("printPrivateKey");
+
+  await hre.run("verify:verify", {
+    address: libraryContract.address,
+    constructorArguments: [
+    ],
+  });
 }
 
-// We recommend this pattern to be able to use async/await everywhere
-// and properly handle errors.
-main().catch((error) => {
-  console.error(error);
-  process.exitCode = 1;
-});
+module.exports = deploy;

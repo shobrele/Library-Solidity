@@ -83,6 +83,10 @@ contract Library is Ownable{
         return BookBorrowHistory[bookId];
     }
 
+    function GetLibraryArchive() public view returns (Book[] memory){
+        return LibraryArchive;
+    }
+
     function LibraryContainsBook(string calldata bookName) private view returns (bool){
         for(uint i=0;i<LibraryArchive.length;i++){
             if(helpersContract.compareStrings(LibraryArchive[i].name, bookName)){

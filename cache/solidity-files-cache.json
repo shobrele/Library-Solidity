@@ -1,7 +1,7 @@
 {
   "_format": "hh-sol-cache-2",
   "files": {
-    "/Users/dimitardzhalev/Workspace/LibraryLession/contracts/Helpers.sol": {
+    "/Users/dimitardzhalev/Workspace/Library-Solidity/contracts/Helpers.sol": {
       "lastModificationDate": 1649242764599,
       "contentHash": "8c2970dc0b26c0a8d28e35746b4beff1",
       "sourceName": "contracts/Helpers.sol",
@@ -36,9 +36,9 @@
         "Helpers"
       ]
     },
-    "/Users/dimitardzhalev/Workspace/LibraryLession/contracts/Library.sol": {
-      "lastModificationDate": 1649242792497,
-      "contentHash": "9c25d002c9fcfb73d4d0f8759184795d",
+    "/Users/dimitardzhalev/Workspace/Library-Solidity/contracts/Library.sol": {
+      "lastModificationDate": 1649330209865,
+      "contentHash": "33e58b0ab4949d90e97452a0c8ade843",
       "sourceName": "contracts/Library.sol",
       "solcConfig": {
         "version": "0.8.4",
@@ -74,7 +74,7 @@
         "Library"
       ]
     },
-    "/Users/dimitardzhalev/Workspace/LibraryLession/node_modules/@openzeppelin/contracts/access/Ownable.sol": {
+    "/Users/dimitardzhalev/Workspace/Library-Solidity/node_modules/@openzeppelin/contracts/access/Ownable.sol": {
       "lastModificationDate": 1649241376512,
       "contentHash": "8398972af73b4e9e5ff3b31cad86234f",
       "sourceName": "@openzeppelin/contracts/access/Ownable.sol",
@@ -111,7 +111,7 @@
         "Ownable"
       ]
     },
-    "/Users/dimitardzhalev/Workspace/LibraryLession/node_modules/@openzeppelin/contracts/utils/Context.sol": {
+    "/Users/dimitardzhalev/Workspace/Library-Solidity/node_modules/@openzeppelin/contracts/utils/Context.sol": {
       "lastModificationDate": 1649241376499,
       "contentHash": "5f2c5c4b6af2dd4551027144797bc8be",
       "sourceName": "@openzeppelin/contracts/utils/Context.sol",

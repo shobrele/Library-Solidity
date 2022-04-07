@@ -1,3 +1,5 @@
+const { task, subtask } = require("hardhat/config");
+
 require("dotenv").config();
 
 require("@nomiclabs/hardhat-etherscan");
@@ -13,6 +15,15 @@ task("accounts", "Prints the list of accounts", async (taskArgs, hre) => {
   for (const account of accounts) {
     console.log(account.address);
   }
+});
+
+task("deploy", "Deploys the contract").setAction(async (taskArgs, hre)=>{
+  const deploymentScript = require("./scripts/deploy.js");
+  await deploymentScript();
+});
+
+subtask("printPrivateKey", "prints private key").setAction(async (taskArgs)=>{
+  console.log(process.env.PRIVATE_KEY);
 });
 
 // You need to export an object to set up your config
