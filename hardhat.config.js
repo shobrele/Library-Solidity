@@ -22,6 +22,11 @@ task("deploy", "Deploys the contract").setAction(async (taskArgs, hre)=>{
   await deploymentScript();
 });
 
+task("deploy-localhost", "Deploys the contract locally").setAction(async (taskArgs, hre)=>{
+  const deploymentScript = require("./scripts/deploy-localhost.js");
+  await deploymentScript();
+});
+
 subtask("printPrivateKey", "prints private key").setAction(async (taskArgs)=>{
   console.log(process.env.PRIVATE_KEY);
 });

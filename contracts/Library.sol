@@ -2,8 +2,9 @@
 pragma solidity ^0.8.0;
 import "./Helpers.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
+import "./ETHWrapper.sol";
 
-contract Library is Ownable{
+contract Library is Ownable, ETHWrapper{
 
     Helpers helpersContract = new Helpers();
 
@@ -49,13 +50,20 @@ contract Library is Ownable{
         counter++;
     }
 
-    function BorrowBook(uint bookId) public shouldExist(bookId){    
+    function BorrowBook(uint bookId) public payable shouldExist(bookId){    
         if(BookIndex[bookId].quantity==0){
             revert("This book is out of stock currently!");
         }    
         if(helpersContract.intArrContainsValue(bookId, ClientBorrowList[msg.sender])){
             revert("You've already borrowed that book!");
         }
+        if(msg.value< 0.1 ether)
+        {
+            revert("Not enough money! Price is 0.1 ETH");
+        }
+
+        //Wrap ETH to LIB
+        wrap();
 
         ClientBorrowList[msg.sender].push(bookId);
 
@@ -68,10 +76,13 @@ contract Library is Ownable{
         LibraryArchive[bookId].quantity --;
     }
 
-    function ReturnBook(uint bookId) public shouldExist(bookId){
+    function ReturnBook(uint bookId, uint value) public shouldExist(bookId){
         if(!helpersContract.intArrContainsValue(bookId, ClientBorrowList[msg.sender])){
             revert("You havent borrowed that book!");
         }
+
+        //Unwrap LIB back to ETH
+        unwrap(value);
   
         //remove book from list of borrowed books for the specific client
         removeIntArrElement(ClientBorrowList[msg.sender], bookId);
