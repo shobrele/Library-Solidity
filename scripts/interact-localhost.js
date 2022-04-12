@@ -42,11 +42,13 @@ const run = async function () {
 
   console.log("LIB Token address: ", libTokenAddress.toString());
 
+  Events(contract)
+
   //await getAvailableBooks(contract)
 
   //addBook(contract)
 
-  getClientWalletBalance(tokenContract, clientWallet);
+  //getClientWalletBalance(tokenContract, clientWallet);
 
   //rentBook(contract,clientWallet)
 
@@ -108,6 +110,20 @@ async function returnBook(tokenContract, contract, clientWallet) {
   await approveTx.wait();
 
   await contract.connect(clientWallet).ReturnBook(0, hre.ethers.utils.parseEther("0.1"));
+}
+
+async function Events(contract){
+  contract.on('LogAddBook', (bookId, bookName, bookQuantity, tx) => {
+    console.log("Added book: ",bookId,bookName,bookQuantity)
+  });
+
+  contract.on('LogBorrowBook', (bookId, client, tx) => {
+    console.log("User borrowed the following book: ", bookId, client)
+  });
+
+  contract.on('LogReturnBook', (bookId, client, tx) => {
+    console.log("User returned the following book: ", bookId, client)
+  });
 }
 
 run();

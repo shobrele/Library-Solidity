@@ -37,8 +37,8 @@
       ]
     },
     "/Users/dimitardzhalev/Workspace/Library-Solidity/contracts/Library.sol": {
-      "lastModificationDate": 1649688720008,
-      "contentHash": "95f312ee95438cf01a7b31948991a329",
+      "lastModificationDate": 1649745648174,
+      "contentHash": "f943ef8391b31500bc869eec108fcc81",
       "sourceName": "contracts/Library.sol",
       "solcConfig": {
         "version": "0.8.4",

@@ -30,6 +30,12 @@ contract Library is Ownable, ETHWrapper{
         _;
     }
 
+    event LogAddBook(uint bookid, string bookName, uint quantity);
+
+    event LogBorrowBook(uint bookid, address clientAddress);
+
+    event LogReturnBook(uint bookid, address clientAddress);
+
     function AddBook(string calldata bookName, uint quantity) public onlyOwner{
         if(LibraryContainsBook(bookName) || BookIndex[counter].exists){
             revert("This book exists in the library!");
@@ -48,6 +54,8 @@ contract Library is Ownable, ETHWrapper{
         LibraryArchive.push(newBook);
 
         counter++;
+
+        emit LogAddBook(newBook.id, newBook.name,  newBook.quantity);
     }
 
     function BorrowBook(uint bookId) public payable shouldExist(bookId){    
@@ -74,6 +82,8 @@ contract Library is Ownable, ETHWrapper{
 
         BookIndex[bookId].quantity --;
         LibraryArchive[bookId].quantity --;
+
+        emit LogBorrowBook(bookId, msg.sender);
     }
 
     function ReturnBook(uint bookId, uint value) public shouldExist(bookId){
@@ -88,6 +98,8 @@ contract Library is Ownable, ETHWrapper{
         removeIntArrElement(ClientBorrowList[msg.sender], bookId);
         BookIndex[bookId].quantity ++;
         LibraryArchive[bookId].quantity ++;
+
+        emit LogReturnBook(bookId, msg.sender);
     }
 
     function BorrowHistory(uint bookId) public view shouldExist(bookId) returns (address[] memory){
